@@ -1,0 +1,95 @@
+<!--details.ejs-->
+<div class="card col-sm-12 col-md-12">
+    <h3 class="card-title">
+        <%= HOUSE.name %>
+    </h3>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12 col-md-5">
+                <img src="<%= HOUSE.ImageURL %>" class="card-img" alt="loading...">
+            </div>
+            <div class="card col-sm-12 col-md-7">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        Estate:
+                        <%= HOUSE.Estate %>
+                    </li>
+                    <li class="list-group-item">
+                        Gross Area:
+                        <%= HOUSE.GrossArea %>
+                    </li>
+                    <li class="list-group-item">
+                        Rent:
+                        <%= HOUSE.Rent %>
+                    </li>
+                    <li class="list-group-item">
+                        Bedrooms:
+                        <%= HOUSE.BedroomsNumber %>
+                    </li>
+                    <li class="list-group-item">
+                        Expected Tenants:
+                        <%= HOUSE.Tenants %>
+                    </li>
+                    <li class="list-group-item">
+                        Created:
+                        <%= createdTime %>
+                    </li>
+                    <li class="list-group-item">
+                        updated:
+                        <%= updatedTime %>
+                    </li>
+                </ul>
+                <% if (req.session.Role == "Admin" || req.session.Role == "Client") { %>
+                    <% if (!Rented ){ %>
+                <button type="button" class="btn btn-primary" onclick="OrderForm()">Order</button>
+                <% } else{ %>
+                <button type="button" class="btn btn-primary" onclick="DeleteForm()">Delete</button>
+                <% }} %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    async function OrderForm(oFormElement) {
+
+        var response = await fetch("/user/<%= req.session.Id %>/add/<%= HOUSE.id %>", {
+            method: "POST",
+            credentials: 'same-origin',
+            // body: new FormData(oFormElement),
+        });
+
+        if (response.ok) {
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data);
+            location.reload(true);
+        } else if (response.status == 409) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+    async function DeleteForm(oFormElement) {
+
+        var response = await fetch("/user/<%= req.session.Id %>/delete/<%= HOUSE.id %>", {
+            method: "POST",
+            credentials: 'same-origin',
+            // body: new FormData(oFormElement),
+        });
+
+        if (response.ok) {
+            var data = await response.json();   // for res.ok() or res.json()
+            alert(data);
+            location.reload(true);
+        } else if (response.status == 409) {
+            var data = await response.text();   // for res.send()
+            alert(data);
+        } else {
+            alert(response.statusText);
+        }
+
+    };
+
+</script>

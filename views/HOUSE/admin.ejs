@@ -1,0 +1,29 @@
+<!-- add admin.ejs -->
+
+<table class="table col-sm-12">
+    <% HOUSE.forEach( function(model) { %>
+
+
+    <tr>
+
+        <td>
+            <%= model.name %>
+        </td>
+        <td>
+            <%= model.Estate %>
+        </td>
+        <td>
+            <a href="/HOUSE/Occupants/<%= model.id %>">Occupants</a>
+        </td>
+        <td>
+            <a href="/HOUSE/update/<%= model.id %>">EDIT</a>
+        </td>
+
+    </tr>
+
+
+
+
+    <% }); %>
+
+</table>

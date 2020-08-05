@@ -1,0 +1,57 @@
+<!-- update.ejs -->
+<form action="/HOUSE/update/<%= HOUSE.id %>" method="POST">
+    <!-- Elements in the form -->
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <label>Property title:</label><br>
+            <input class="form-control" type="text" id="HOUSE[name]" name="HOUSE[name]" value="<%= HOUSE.name %>" maxlength="20" required>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <label>Image URL</label><br>
+            <input class="form-control" type="url" id="HOUSE[ImageURL]" name="HOUSE[ImageURL]" value='<%= HOUSE.ImageURL %>' required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <label>Estate:</label><br>
+            <select class="form-control" id="HOUSE[Estate]" name="HOUSE[Estate]" required>
+            <option value="">Please select</option>
+            <option value="Festival City">Festival City</option>
+            <option value="Tin Ma Court">Tin Ma Court</option>
+            <option value="City One Shatin">City One Shatin</option>
+        </select>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <label>Bedrooms:</label><br>
+            <input class="form-control" type="number" id="HOUSE[BedroomsNumber]" name="HOUSE[BedroomsNumber]" value="<%= HOUSE.BedroomsNumber %>" min="1" max="10" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <label>Gross Area:</label><br>
+            <input class="form-control" type="number" id="HOUSE[GrossArea]" name="HOUSE[GrossArea]" value="<%= HOUSE.GrossArea %>" min="0" max="99999" required>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <label>Expected Tenants:</label><br>
+            <input class="form-control" type="number" id="HOUSE[Tenants]" name="HOUSE[Tenants]" value="<%= HOUSE.Tenants %>" min="1" max="10" required>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <label>Rent:</label><br>
+            <input class="form-control" type="number" id="HOUSE[Rent]" name="HOUSE[Rent]" value="<%= HOUSE.Rent %>" min="0" max="99999999" required>
+        </div>
+        <!-- boolean -->
+        <div class="col-sm-12 col-md-6">
+            <input name="HOUSE[HighLighted]" type="checkbox" value="TRUE">Property HighLighted
+            <button class=" card btn btn-blue" style="background-color: blue; color: white" type="submit" id="Submitbtn">submit</button>
+        </div>
+    </div>
+
+
+</form>
+<form action="/HOUSE/delete/<%= HOUSE.id %>" method="POST">
+    <div>
+        <button class="btn btn-danger" type="submit">delete</button>
+    </div>
+</form>

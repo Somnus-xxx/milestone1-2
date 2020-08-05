@@ -1,0 +1,124 @@
+<!-- search.ejs -->
+<div class="row col-md-12">
+    <div class="card col-md-4">
+        <form action="/HOUSE/query" method="GET">
+            <!--paginate.ejs-->
+            <% if (Count) {%>
+            <% const current= parseInt(req.query.page) || 1; %>
+            <nav aria-label="pagination">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="/HOUSE/paginate?page=<%= Math.max(current-1, 1) %>">Previous</a>
+                    </li>
+
+                    <% for(var i= 1; i <= Count; i++) { %>
+                    <li class="page-item">
+                        <a class="page-link" href="/HOUSE/paginate?page=<%= i %>">
+                            <%= i %>
+                        </a>
+                    </li>
+                    <% }; %>
+
+                    <li class="page-item">
+                        <a class="page-link"
+                            href="/HOUSE/paginate?page=<%= Math.min(current+1, HOUSE.Count) %>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <%}%>
+    
+                <!-- search card -->
+                <h2>
+                    Property Search
+                </h2>
+            <div class="card-body">
+
+                <div class="row">
+                    <label>Estate:</label>
+                    <select class="form-control
+                        col-md-8" name="Estate">
+                        <option>Please select an estate</option>
+                        <option value="Festival City">Festival City</option>
+                        <option value="Tin Ma Court">Tin Ma Court</option>
+                        <option value="City One Shatin">City One
+                            Shatin</option>
+                    </select>
+                    <div class="row col-md-12">
+                        <label>Bedrooms:</label>
+                        <input
+                            class="form-control
+                            col-md-8"
+                            type="number"
+                            name="BedroomsNumber" min="1" max="10">
+                    </div>
+                    <span>Area(Sq feet):</span>
+                    <div class="row col-md-12">
+                        <label>Min:</label>
+                        <input
+                            class="form-control
+                            col-md-4"
+                            type="number"
+                            name="MinGrossArea" min="0" max="10000">
+                        <label>Max:</label>
+                        <input
+                            class="form-control
+                            col-md-4"
+                            type="number"
+                            name="MaxGrossArea" min="0" max="99999">
+                    </div>
+                    <span>Rent(HK$):</span>
+
+                    <div class="row">
+                        <div class="class=col-1 col-md-1 col-lg-1">
+                            <label for="MinRent">Min:</label>
+                        </div>
+
+                        <div class="class=col-4 col-md-4 col-lg-4">
+                            <input class="form-control" type="number" name="MinRent" min="0" max="1000000">
+                        </div>
+
+                        <div class="class=col-1 col-md-1 col-lg-1">
+                            <label for="MaxRent">Max:</label>
+                        </div>
+                        <div class="class=col-4 col-md-4 col-lg-4">
+                            <input class="form-control" type="number" name="MaxRent" min="0" max="999999999">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+                <button class="btn
+                    btn-blue"
+                    style="background-color:
+                    blue;color: white;"
+                    type="submit">Search</button>
+            </form>
+    </div>
+
+    <!-- result card -->
+    <% if (Count>0){ %>
+            <% HOUSE.forEach(function(HOUSE){ %>
+            <div class="card col-sm-4 col-md-4 col-lg-4" id="ResultCard">
+                <img src="<%= HOUSE.ImageURL %>" alt="loading..." class="card-img">
+                <div class="card-body">
+                    <a href="/HOUSE/details/<%= HOUSE.id %>" class="card-title">
+                        <%= HOUSE.name %>
+                    </a>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"> Estate:
+                            <%= HOUSE.Estate %>
+                        </li>
+                        <li class="list-group-item"> Gross Area:
+                            <%= HOUSE.GrossArea %>
+                        </li>
+                        <li class="list-group-item"> Rent:
+                            <%= HOUSE.Rent %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <% }); %>
+            <%};%>
+    </div>
+</div>
